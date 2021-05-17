@@ -6,3 +6,5 @@ var captured = /token=([^&]+)/.exec(url)[1]; // Value is in [1] ('384' in our ca
 var result = captured ? captured : 'myDefaultValue';
 
 console.log(captured);
+
+//Calcular API SIG
