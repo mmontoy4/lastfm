@@ -6,6 +6,9 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
     <script type="text/javascript" src="../scripts/principal.js"></script>
+    <script type="text/javascript" src="../scripts/md5.min.js"></script>
+    <script type="text/javascript" src="../scripts/utf8.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
   <title>Doja Cat</title>
 </head>
@@ -21,7 +24,21 @@
   		</nav>
   	</header>
     <div class="doja">
+      <button type="button" onclick="calculateApiSignatureStack()">Calculate API Signature</button>
+      <div id="user">
+      </div>
+      <script>
 
+    function imprimirUsuari(){
+      let x = sessionStorage.getItem("mySessionUser");
+      if(x != null){
+          $(user).text(x);
+      }else{
+          alert("No hi ha res!");
+      }
+    }
+  </script>
+  <button type="button" onclick="imprimirUsuari()">usuari</button>
     </div>
   	<footer>
   		<p>Marta Montoya Anton - Institut Almatà de Balaguer - 2021</p>
