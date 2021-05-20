@@ -10,6 +10,7 @@ let nomAlbum = null;
 let mbidAlbum = null;
 let nomUsuari = null;
 let nomDePila = null;
+let artistaMesFamos = null;
 //console.log(captured);
 
 //Calcular API SIG
@@ -227,6 +228,52 @@ $(document).ready(function(){
               //console.log($(element).find("binding[name='latitud']").find("literal").text());
               //console.log($(element).find("binding[name='longitud']").find("literal").text());
 });
+
+            //$("#nomDePila").text("El meu nom de pila"+res.user.realname);
+
+        },
+        error : function(xhr, status, error){
+            var errorMessage = xhr.status + ': ' + xhr.statusText
+            console.log('Error - ' + errorMessage);
+        }
+    });
+
+  }
+  function millorArtistaEspanya(){
+
+    var data = {
+        'country' : "spain",
+        'limit' : 1,
+        'api_key': "062e9a51720da9c3c4e2bce4aaf4e5ab",
+        'method' : 'geo.getTopArtists'
+    };
+
+    //data["api_sig"] = calculateApiSig( data);
+
+    data["format"] = "xml";
+
+    //console.log("DATa", data);
+    var last_url="http://ws.audioscrobbler.com/2.0/?";
+
+    $.ajax({
+        type: "GET",
+        url: last_url,
+        data:data,
+        dataType: 'xml',
+
+        //Si la peticio ha anat bé, passara les dades de la resposta (200 OK) a la variable res, agafaré les que m'interessin
+        //i les aniré imprimint a un div amb el id corresponent de la pagina html principal.
+        success: function(res){
+
+            //nomDePila = res.user.realname;
+
+            $(res).find("lfm").find("topartists").each(function(index,element){
+                console.log($(element).find("artist").find("name").text());
+              //console.log($(element).find("binding[name='latitud']").find("literal").text());
+              //console.log($(element).find("binding[name='longitud']").find("literal").text());
+              $("#artistaMesFamos").text($(element).find("artist").find("name").text());
+            });
+
 
             //$("#nomDePila").text("El meu nom de pila"+res.user.realname);
 
