@@ -8,6 +8,8 @@ let nomArtista = null;
 let mbid = null;
 let nomAlbum = null;
 let mbidAlbum = null;
+let nomUsuari = null;
+let nomDePila = null;
 //console.log(captured);
 
 //Calcular API SIG
@@ -83,6 +85,8 @@ $(document).ready(function(){
             //store session key for further authenticate operations...
             sessionStorage.setItem("mySessionUser", res.session.name);
             sessionStorage.setItem("mySessionKey", res.session.key);
+            nomUsuari = res.session.name;
+            $("#nomUsuari").text(nomUsuari);
         },
         error : function(xhr, status, error){
             var errorMessage = xhr.status + ': ' + xhr.statusText
@@ -180,6 +184,51 @@ $(document).ready(function(){
 
             }
             $("#nomAlbum").text(string);
+
+        },
+        error : function(xhr, status, error){
+            var errorMessage = xhr.status + ': ' + xhr.statusText
+            console.log('Error - ' + errorMessage);
+        }
+    });
+
+  }
+
+  function infoUsuari(){
+
+    var data = {
+        'user' : "mmontoy4",
+        'api_key': "062e9a51720da9c3c4e2bce4aaf4e5ab",
+        'method' : 'user.getInfo'
+    };
+
+    //data["api_sig"] = calculateApiSig( data);
+
+    data["format"] = "xml";
+
+    //console.log("DATa", data);
+    var last_url="http://ws.audioscrobbler.com/2.0/?";
+
+    $.ajax({
+        type: "GET",
+        url: last_url,
+        data:data,
+        dataType: 'xml',
+
+        //Si la peticio ha anat bé, passara les dades de la resposta (200 OK) a la variable res, agafaré les que m'interessin
+        //i les aniré imprimint a un div amb el id corresponent de la pagina html principal.
+        success: function(res){
+
+            //nomDePila = res.user.realname;
+
+            $(res).find("lfm").find("user").each(function(index,element){
+              console.log($(element).find("realname").text());
+              $("#nomDePila").text($(element).find("realname").text());
+              //console.log($(element).find("binding[name='latitud']").find("literal").text());
+              //console.log($(element).find("binding[name='longitud']").find("literal").text());
+});
+
+            //$("#nomDePila").text("El meu nom de pila"+res.user.realname);
 
         },
         error : function(xhr, status, error){
