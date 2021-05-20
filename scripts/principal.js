@@ -87,3 +87,46 @@ function calculateApiSignatureStack() {
         }
     });
 }
+
+  function infoArtista(){
+
+    var data = {
+        'token': Utf8.encode(captured),
+        'api_key': "062e9a51720da9c3c4e2bce4aaf4e5ab",
+        'artist' : "Doja Cat",
+        'autocorrect' : 1,
+         'method': 'artist.getinfo'
+    };
+
+    //data["api_sig"] = calculateApiSig( data);
+
+    data["format"] = "json";
+
+    console.log("DATa", data);
+    var last_url="http://ws.audioscrobbler.com/2.0/?";
+
+    $.ajax({
+        type: "GET",
+        url: last_url,
+        data:data,
+        dataType: 'json',
+        //"success" gets called when the returned code is a "200" (successfull request). "error" gets called whenever another code is returned (e.g. 404, 500).
+        success: function(res){
+            //No caldria aquesta instrucció perque ja guaredem els que ens convé en sessionStorage
+         //   data['method'] = res;
+        //->     last_fm_data[method] = res;
+           // var  myresposta = JSON.parse(res);
+            console.log("Resposta: Name " + res.artist.name);// Should return session key.
+            console.log("Resposta: Key " + res.artist.mbid);
+
+            //store session key for further authenticate operations...
+            sessionStorage.setItem("mySessionUser", res.artist.name);
+            sessionStorage.setItem("mySessionKey", res.artist.mbid);
+        },
+        error : function(xhr, status, error){
+            var errorMessage = xhr.status + ': ' + xhr.statusText
+            console.log('Error - ' + errorMessage);
+        }
+    });
+
+  }
