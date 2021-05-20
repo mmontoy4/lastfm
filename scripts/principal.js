@@ -158,36 +158,28 @@ $(document).ready(function(){
         url: last_url,
         data:data,
         dataType: 'json',
-        //"success" gets called when the returned code is a "200" (successfull request). "error" gets called whenever another code is returned (e.g. 404, 500).
-        success: function(res){
-            //No caldria aquesta instrucció perque ja guaredem els que ens convé en sessionStorage
-         //   data['method'] = res;
-        //->     last_fm_data[method] = res;
-           // var  myresposta = JSON.parse(res);
-            //console.log("Resposta: Name " + res.album.name);// Should return session key.
-            //console.log("Resposta: Key " + res.album.mbid);
-            //console.log(res.topalbums.album[0]);
-            //nomAlbum = res.album.name;
 
-            //mbidAlbum = res.album.mbid;
-            let string = null;
-            let foto = null;
-            for (var i=0; i< 10; i++)
+        //Si la peticio ha anat bé, passara les dades de la resposta (200 OK) a la variable res, agafaré les que m'interessin
+        //i les aniré imprimint a un div amb el id corresponent de la pagina html principal.
+        success: function(res){
+
+            var string = "";
+            //let foto = null;
+            for (var i=0; i<= 10; i++)
             {
               console.log(res.topalbums.album[i]);
-              //console.log(res.topalbums.album[i].image);
-              //$("#nomAlbum").text("Nom: "+res.topalbums.album[i].name);
-              string += "Nom: "+res.topalbums.album[i].name;
-              foto += "<img src=\" "+res.topalbums.album[i].image[2]+"\" size=\"medium\">";
+
+              //Aquest if el que fa es, com tinc tots els noms del album concatenats, fico una coma i un espai, i en cas de que
+              //sigui el últim album un punt final.
+              if(i!=10){
+                string += "Nom: "+res.topalbums.album[i].name+", ";
+              }else{
+                  string += "Nom: "+res.topalbums.album[i].name+".";
+              }
+
 
             }
             $("#nomAlbum").text(string);
-            //sessionStorage.setItem("mySessionUser", res.album.name);
-            //sessionStorage.setItem("mySessionKey", res.album.mbid);
-            //$("#nomAlbum").text("Nom: "+res.album.name);
-            //$("#mbidAlbum").text("MBID: "+res.album.mbid);
-
-            //store session key for further authenticate operations...
 
         },
         error : function(xhr, status, error){
