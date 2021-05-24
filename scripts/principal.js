@@ -11,6 +11,8 @@ let mbidAlbum = null;
 let nomUsuari = null;
 let nomDePila = null;
 let artistaMesFamos = null;
+var MyAPI_sig = null;
+var MyAPI_sk = null;
 //console.log(captured);
 
 //Calcular API SIG
@@ -45,6 +47,8 @@ function calculateApiSig(params) {
 
     var hashed_sec = md5(unescape(encodeURIComponent(stringActual)));
     console.log("La apiSig es: " + hashed_sec);
+
+    MyAPI_sig = hashed_sec;
 
     return hashed_sec; // Returns signed POSTable objec */
 
@@ -87,6 +91,7 @@ $(document).ready(function(){
             sessionStorage.setItem("mySessionUser", res.session.name);
             sessionStorage.setItem("mySessionKey", res.session.key);
             nomUsuari = res.session.name;
+            MyAPI_sk = res.session.key;
             $("#nomUsuari").text(nomUsuari);
         },
         error : function(xhr, status, error){
@@ -273,6 +278,50 @@ $(document).ready(function(){
               //console.log($(element).find("binding[name='longitud']").find("literal").text());
               $("#artistaMesFamos").text($(element).find("artist").find("name").text());
             });
+
+
+            //$("#nomDePila").text("El meu nom de pila"+res.user.realname);
+
+        },
+        error : function(xhr, status, error){
+            var errorMessage = xhr.status + ': ' + xhr.statusText
+            console.log('Error - ' + errorMessage);
+        }
+    });
+
+  }
+
+  function loveTrack(){
+
+    var data = {
+        'track' : Utf8.encode("Say So"),
+        'artist' : "Doja Cat",
+        'api_key': "062e9a51720da9c3c4e2bce4aaf4e5ab",
+        'api_sig': MyAPI_sig,
+        'sk': MyAPI_sk,
+        'method' : 'track.love'
+    };
+
+    //data["api_sig"] = calculateApiSig( data);
+
+    data["format"] = "xml";
+
+    //console.log("DATa", data);
+    var last_url="http://ws.audioscrobbler.com/2.0/?";
+
+    $.ajax({
+        type: "POST",
+        url: last_url,
+        data:data,
+        dataType: 'xml',
+
+        //Si la peticio ha anat bé, passara les dades de la resposta (200 OK) a la variable res, agafaré les que m'interessin
+        //i les aniré imprimint a un div amb el id corresponent de la pagina html principal.
+        success: function(res){
+
+            //nomDePila = res.user.realname;
+
+
 
 
             //$("#nomDePila").text("El meu nom de pila"+res.user.realname);

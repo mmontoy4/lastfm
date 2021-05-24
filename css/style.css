@@ -31,7 +31,7 @@ li a:hover {
 
 }
 nav{
-  position: fixed;
+  position: absolute;
   height: 100%;
   background-color: white;
   font-family: 'Krona One', sans-serif;
@@ -47,7 +47,7 @@ footer{
   background-image: url('../img/doja_min.png');
   width: 25%;
   height: 100%;
-  position: fixed;
+  position: absolute;
   right:0;
 }
 
@@ -73,4 +73,21 @@ button{
 .button1:hover {
   background-color: hotpink;
   color: white;
+}
+
+button{
+  border: 2px solid black;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  float: left;
+  position: relative;
+  clear: auto;
+  left: 20%;
+  right: 50%;
+}
+
+button:hover {
+  background-color: #ff1493;
+  color: #ffe6f2;
+  transition: 1s;
+
 }
