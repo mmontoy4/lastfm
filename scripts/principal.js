@@ -343,7 +343,7 @@ $(document).ready(function(){
 
 //Artist info JSON
 
-window.onload = function()  { //Información sobre M. L. Gore
+window.onload = function()  {
 
 
         var xhttp = new XMLHttpRequest();
