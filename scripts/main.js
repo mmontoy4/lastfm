@@ -2,6 +2,11 @@
   var myAPI_key="062e9a51720da9c3c4e2bce4aaf4e5ab";
   var myshared_secret="d28efddba401878b2c80f6f252f43a65";
 
+  /**
+   * Aquesta funció el que fa és redirigir-nos de la api de last fm a la nostra pàgina principal.html
+   * @param url - És la url que canviarem de la barra de navegació del nostre navegador per redireccionar-nos a principal.html
+    */
+
   function loginLastFm(){
   			/*
   			params api_key ( my api key)
