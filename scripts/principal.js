@@ -338,7 +338,7 @@ $(document).ready(function(){
 
 
        }
-       document.getElementById("demo3").innerHTML = table;
+       document.getElementById("imprimir").innerHTML = table;
    }
 
 //Artist info JSON
@@ -361,7 +361,7 @@ window.onload = function()  { //Información sobre M. L. Gore
                 if (this.readyState == 4 && this.status == 200) { // esto es que la consulta está perfectamente
                     console.log("4:request finished and response is ready");
                     //  document.getElementById("demo").innerHTML = this.responseText;
-                    myFunction5(this.response);
+                    imprimir2(this.response);
                 }
             } catch (error) {
                 console.log(error);
@@ -377,11 +377,11 @@ window.onload = function()  { //Información sobre M. L. Gore
 
 
 
-function myFunction5(dades){ // Pone el nombre del artista
+function imprimir2(dades){ // Pone el nombre del artista
  console.log(dades);
 
  var txt = "";
 
  txt = "<h1>  " +dades.artist.name +"</h1>";
-    document.getElementById("demo5").innerHTML = txt;
+    document.getElementById("imprimir2").innerHTML = txt;
 }
