@@ -291,46 +291,97 @@ $(document).ready(function(){
 
   }
 
-  function loveTrack(){
+  //Artist info
 
-    var data = {
-        'track' : Utf8.encode("Say So"),
-        'artist' : "Doja Cat",
-        'api_key': "062e9a51720da9c3c4e2bce4aaf4e5ab",
-        'api_sig': MyAPI_sig,
-        'sk': MyAPI_sk,
-        'method' : 'track.love'
-    };
-
-    //data["api_sig"] = calculateApiSig( data);
-
-    data["format"] = "xml";
-
-    //console.log("DATa", data);
-    var last_url="http://ws.audioscrobbler.com/2.0/?";
-
-    $.ajax({
-        type: "POST",
-        url: last_url,
-        data:data,
-        dataType: 'xml',
-
-        //Si la peticio ha anat bé, passara les dades de la resposta (200 OK) a la variable res, agafaré les que m'interessin
-        //i les aniré imprimint a un div amb el id corresponent de la pagina html principal.
-        success: function(res){
-
-            //nomDePila = res.user.realname;
+  function httpReq() { // Información sobre David Gahan
+       var xhttp = new XMLHttpRequest();
+       xhttp.onreadystatechange = function () {
+           if (this.readyState == 0) {
+               console.log("0:request not initialized");
+           } else if (this.readyState == 1) {
+               console.log("1:server connection established");
+           } else if (this.readyState == 2) {
+               console.log("2:request received");
+           } else if (this.readyState == 3) {
+               console.log("3:processing request");
+           }
+           try { // le pongo un try catch
+               if (this.readyState == 4 && this.status == 200) { // esto es que la consulta está perfectamente
+                   console.log("4:request finished and response is ready");
+                   //  document.getElementById("demo").innerHTML = this.responseText;
+                   imprmir(this);
+               }
+           } catch (error) {
+               console.log(error);
+           }
+       };
+       xhttp.open("GET", "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Doja%20Cat&api_key=062e9a51720da9c3c4e2bce4aaf4e5ab", true);
+       xhttp.send();
 
 
+   }
 
 
-            //$("#nomDePila").text("El meu nom de pila"+res.user.realname);
+   function imprmir(xml) {
+       var i;
+       var xmlDoc = xml.responseXML;
+       var table = "<tr><th>Name</th><th>Url</th></tr>";
+       var x = xmlDoc.getElementsByTagName("artist");
+       for (i = 0; i < x.length; i++) {
+           table += "<tr><td>" +
+               x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue +
 
-        },
-        error : function(xhr, status, error){
-            var errorMessage = xhr.status + ': ' + xhr.statusText
-            console.log('Error - ' + errorMessage);
-        }
-    });
+               "</td><td>" +
 
-  }
+               x[i].getElementsByTagName("url")[0].childNodes[0].nodeValue +
+               "</td><td> </tr>";
+
+
+       }
+       document.getElementById("demo3").innerHTML = table;
+   }
+
+//Artist info JSON
+
+window.onload = function()  { //Información sobre M. L. Gore
+
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 0) {
+                console.log("0:request not initialized");
+            } else if (this.readyState == 1) {
+                console.log("1:server connection established");
+            } else if (this.readyState == 2) {
+                console.log("2:request received");
+            } else if (this.readyState == 3) {
+                console.log("3:processing request");
+            }
+            try { // le pongo un try catch
+                if (this.readyState == 4 && this.status == 200) { // esto es que la consulta está perfectamente
+                    console.log("4:request finished and response is ready");
+                    //  document.getElementById("demo").innerHTML = this.responseText;
+                    myFunction5(this.response);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        xhttp.responseType = 'json';
+        xhttp.open("GET", "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Doja%20Cat&api_key=062e9a51720da9c3c4e2bce4aaf4e5ab&format=json", true);
+        xhttp.send();
+
+
+    }
+
+
+
+
+function myFunction5(dades){ // Pone el nombre del artista
+ console.log(dades);
+
+ var txt = "";
+
+ txt = "<h1>  " +dades.artist.name +"</h1>";
+    document.getElementById("demo5").innerHTML = txt;
+}
